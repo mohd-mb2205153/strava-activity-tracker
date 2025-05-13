@@ -22,7 +22,41 @@ async function getClubActivites() {
     return activitiesList;
 
 }
-console.log("hello")
+// console.log("hello")
 
-const output = await getClubActivites();
-console.log(output);
+// const output = await getClubActivites();
+// console.log(output);
+
+
+
+//Function for getting the new access token using the refresh token
+function getNewAccessToken() {
+  const clientId = '159369';
+  const clientSecret = '399f3c6e47734891baf5abd82426058facaf2f9c';
+  const refreshToken = '86792c3c3ce4a2a15860919416c5ac8421977bb3';
+
+  const url = 'https://www.strava.com/oauth/token';
+  const payload = {
+    client_id: clientId,
+    client_secret: clientSecret,
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken
+  };
+
+  const options = {
+    method: 'post',
+    payload: payload
+  };
+
+  const response = UrlFetchApp.fetch(url, options);
+  const data = JSON.parse(response.getContentText());
+  const newAccessToken = data.access_token;
+
+  // Storing the new access token in PropertiesService
+  PropertiesService.getScriptProperties().setProperty('STRAVA_ACCESS_TOKEN', newAccessToken);
+  
+  return newAccessToken;
+}
+
+const newtoken = getNewAccessToken();
+console.log("New token: " + newtoken);
