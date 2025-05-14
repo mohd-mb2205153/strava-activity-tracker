@@ -75,8 +75,7 @@ Last updated at: 14-May-2025 19:15
 ## 🙋‍♂️ Author
 
 **Mohd Muhtasim Bashar**  
-📧 Contact: [your-email@example.com]  
-🔗 GitHub: [your-github-profile](https://github.com/your-github-username)
+📧 Contact: muhtasim2k2@gmail.com
 
 ---
 
