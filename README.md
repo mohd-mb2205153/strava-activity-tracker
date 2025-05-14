@@ -3,7 +3,9 @@
 A Google Apps Script that fetches **recent activities** of members from a **Strava club** and displays them in a Google Sheet, with proper formatting and automation.
 
 ---
-<img src="assets/demo-1.gif" width="550" alt="Strava Activity Tracker Demo">
+<img src="assets/demo-1.gif" width="500" alt="Strava Activity Tracker Demo">
+
+
 ---
 
 ## 📌 Features
