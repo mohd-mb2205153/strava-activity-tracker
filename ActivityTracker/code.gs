@@ -1,3 +1,18 @@
+/**
+ * Strava Club Activity Fetcher
+ * 
+ * Author: Mohd Muhtasim Bashar
+ * Description: 
+ *   - Fetches all club activities using Strava API
+ *   - Handles access token refresh automatically
+ *   - Outputs athlete name, distance, duration, and activity type
+ *   - Applies formatting and automated updates via time-based trigger
+ * 
+ * Technologies: Google Apps Script, Strava API, GitHub for version control
+ * 
+ * Note: Client Id, Secret and Refresh token is explicitly mention in the script
+ */
+
 //Function for getting the new access token using the refresh token
 function getNewAccessToken() {
   const clientId = '159369';
@@ -64,7 +79,7 @@ function getClubActivites() {
           'headers': {
               'Authorization': 'Bearer ' + token
           },
-          muteHttpExceptions: true
+          muteHttpExceptions: true      // Muting exceptions 
       }
 
       let response =  UrlFetchApp.fetch(url, options);
@@ -86,9 +101,9 @@ function getClubActivites() {
 
       const activitiesList = JSON.parse(response.getContentText())
 
-      if (activitiesList.length === 0) {
+      if (activitiesList.length === 0) { // If there is no more activities
         hasMore = false;
-        break;   // If there is no more clubs
+        break;   
       }
 
       // A function that takes an activity object and appends to google sheets row
@@ -115,9 +130,23 @@ function getClubActivites() {
 
     }
 
-    const noOfActivites = perPage * page;
+    const noOfActivites = perPage * page; 
 
     const dataRange = sheet.getRange(2, 1, noOfActivites+1, 4); // Data starts at row 2
     dataRange.setHorizontalAlignment('center');
+
+    // Display the last updated date and time
+    const now = new Date()
+    sheet.getRange('F1').setValue('Last updated at: ')
+    sheet.getRange('G1').setValue(now)
+    sheet.getRange("G1").setNumberFormat("dd-mmm-yyyy hh:mm:ss");
+    sheet.getRange('F1:G1').setHorizontalAlignment('center')
+      .setBackground("#e0f7fa")        // Light cyan
+      .setFontColor("#006064")   // Dark cyan
+      .setVerticalAlignment('middle')
+      .setFontWeight('bold')
+      .setWrap(true);
+
+  sheet.setColumnWidth(7, 180); // Column G is index 7
 
 }
