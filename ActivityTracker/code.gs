@@ -63,28 +63,30 @@ function getClubActivites() {
           'method': 'get',
           'headers': {
               'Authorization': 'Bearer ' + token
-          }
+          },
+          muteHttpExceptions: true
       }
-      const response =  UrlFetchApp.fetch(url, options);
-      const statusCode = response.getResponseCode();
 
-      if (statusCode == 401) {    //If old token is expired, get the new token
+      let response =  UrlFetchApp.fetch(url, options);
+      let statusCode = response.getResponseCode();
+
+      if (statusCode == 401) {    // If old token is expired, get the new token
         token = getNewAccessToken();
         options.headers.Authorization = 'Bearer ' + token;
         response = UrlFetchApp.fetch(url, options);
         statusCode = response.getResponseCode();
       }
 
-      if(statusCode != 200) {     // If Error
-          const errorText =  response.text();
-          Logger.log("Failed to fetch data. [Status Code" + statusCode + " ]")
-          Logger.log(response.getContentText())
-          return;
+      if (statusCode != 200) {     // If Error
+        const errorText =  response.text();
+        Logger.log("Failed to fetch data. [Status Code" + statusCode + " ]")
+        Logger.log(response.getContentText())
+        return;
       } 
 
       const activitiesList = JSON.parse(response.getContentText())
 
-      if(activitiesList.length === 0) {
+      if (activitiesList.length === 0) {
         hasMore = false;
         break;   // If there is no more clubs
       }
