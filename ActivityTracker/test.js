@@ -1,3 +1,5 @@
+// This is not the google script, it is only for testing purposes
+
 async function getClubActivites() {
 
     const token = '954b20102d959bd1c600ad398824f39295263ffb'  //Access Token provided by STRAVA API
