@@ -90,5 +90,23 @@ Last updated at: 14-May-2025 19:15
 ---
 
 ## 📃 License
-The code is secured under GPL License. 
-"""
+
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
+
+You are free to:
+
+- **Use** the code for any purpose.
+- **Study** how the code works and adapt it to your needs.
+- **Share** the code and any modifications you make.
+- **Modify** the code and distribute your versions under the same license.
+
+However, under this license, you **must**:
+
+- **Disclose source**: If you distribute the code (modified or unmodified), you must include the source code or a way to obtain it.
+- **License your modifications** under the same GPL-3.0 terms.
+- **State changes**: If you make changes to the code, you must clearly state what you changed.
+
+There is **no warranty**, and the license does **not grant trademark rights**.
+However, you are not allowed to distribute closed-source versions.
+
+For more details, refer to the [full license text](https://www.gnu.org/licenses/gpl-3.0.en.html).
