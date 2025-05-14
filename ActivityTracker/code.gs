@@ -16,8 +16,8 @@
 // Function for getting the new access token using the refresh token
 function getNewAccessToken() {
   const clientId = '159369';
-  const clientSecret = '399f3c6e47734891baf5abd82426058facaf2f9c';
-  const refreshToken = '86792c3c3ce4a2a15860919416c5ac8421977bb3';
+  const clientSecret = '';  // Provide your client secret 
+  const refreshToken = '';   // Provide your refresh tokent
 
   const url = 'https://www.strava.com/oauth/token';
   const payload = {
