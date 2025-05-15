@@ -15,9 +15,9 @@
 
 // Function for getting the new access token using the refresh token
 function getNewAccessToken() {
-  const clientId = '159369';
-  const clientSecret = '';  // Provide your client secret 
-  const refreshToken = '';   // Provide your refresh tokent
+  const clientId = '';
+  const clientSecret = '';
+  const refreshToken = '';
 
   const url = 'https://www.strava.com/oauth/token';
   const payload = {
@@ -49,10 +49,10 @@ function getClubActivites() {
   // Header row
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   sheet.clear();
-  sheet.appendRow(['Athlete Name', 'Distance (Km)', 'Workout Duration (HH:MM:SS)', 'Activity Type']);
+  sheet.appendRow(['Date','Time','Athlete Name', 'Distance (Km)', 'Workout Duration (HH:MM:SS)', 'Activity Type']);
 
   // For formatting the header 
-  const headerRange = sheet.getRange(1,1,1,4);
+  const headerRange = sheet.getRange(1,1,1,6);
   headerRange.setFontWeight('bold');
   headerRange.setHorizontalAlignment('center');
   headerRange.setVerticalAlignment('middle');
@@ -60,7 +60,7 @@ function getClubActivites() {
   headerRange.setBackground("#f2f2f2")
 
   // Setting alignment for all rows (optional)
-  const allDataRange = sheet.getRange(2, 1, 500, 5); // from row 2 down, 500 rows, 5 columns
+  const allDataRange = sheet.getRange(2, 1, 500, 6); // from row 2 down, 500 rows, 5 columns
   allDataRange.setHorizontalAlignment("center");
 
   const clubId = String(491970);
@@ -111,6 +111,10 @@ function getClubActivites() {
 
     // A function that takes an activity object and appends to google sheets row
     function addingActivities(activity) {
+      const now = new Date().toLocaleString();  // Returns date & time according to local timezone of the system
+      const date = now.split(', ')[0];
+      const time = now.split(', ')[1];
+
       const name = activity.athlete.firstname + " " + activity.athlete.lastname;
       const distance = (activity.distance / 1000).toFixed(2) // In kilometeres
 
@@ -125,7 +129,7 @@ function getClubActivites() {
         String(minutes).padStart(2, '0') + " : " +
         String(seconds).padStart(2, '0');
       const type = activity.type
-      sheet.appendRow([name, distance, duration, type])
+      sheet.appendRow([date, time, name, distance, duration, type])
     }
 
     Logger.log('Adding activites of page no:' + page);
@@ -140,8 +144,8 @@ function getClubActivites() {
 
   // Display the last updated date and time
   const now = new Date()
-  sheet.getRange('F1:G1').merge();
-  sheet.getRange('F1')
+  sheet.getRange('H1:I1').merge();
+  sheet.getRange('H1')
     .setValue(`Last updated at: ${Utilities.formatDate(now, Session.getScriptTimeZone(), "dd-MMM-yyyy HH:mm")}`)
     .setHorizontalAlignment('center')
     .setBackground("#e0f7fa")        // Light cyan
